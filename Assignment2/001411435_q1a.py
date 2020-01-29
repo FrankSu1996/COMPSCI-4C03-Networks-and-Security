@@ -66,3 +66,13 @@ while True:
         response = serverSocket.recv(1024)
         print("Response from server:")
         print(httpUnwrapper(response.decode("utf-8")))
+    elif command == "HELP":
+        serverSocket.sendall(httpWrapper(command))
+        response = serverSocket.recv(1024)
+        print("Response from server:")
+        print(httpUnwrapper(response.decode("utf-8")))
+    elif command == "CDUP":
+        serverSocket.sendall(httpWrapper(command))
+        response = serverSocket.recv(1024)
+        print("Response from server:")
+        print(httpUnwrapper(response.decode("utf-8")))

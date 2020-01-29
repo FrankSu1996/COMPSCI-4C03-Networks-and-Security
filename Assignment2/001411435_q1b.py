@@ -75,3 +75,20 @@ with connection:
             ftpSocket.sendall(command)
             response = ftpSocket.recv(1024).decode("utf-8")
             connection.sendall(httpWrapper(response))
+        elif command == "HELP":
+            response = httpWrapper("""You can now use the following commands:
+            USER
+            PASS
+            PWD
+            CWD
+            HELP
+            CDUP
+            SYST
+            QUIT
+            """)
+            connection.sendall(response)
+        elif command == "CDUP":
+            command = b'CDUP \\\r\n'
+            ftpSocket.sendall(command)
+            response = ftpSocket.recv(1024).decode("utf-8")
+            connection.sendall(httpWrapper(response))
