@@ -43,8 +43,11 @@ class Dijkstra:
         # relax nodes in order of distance from s
         heap.heappush(self.pq, (self.distance[ord('u')], 'u'))
 
-        while not len(pq) == 0:
-            x = 1
+        while not len(self.pq) == 0:
+            v = heap.heappop(self.pq)[1]
+            print(v)
+            return
+
 
     # function to relax edges
     def relax(self, edge):
