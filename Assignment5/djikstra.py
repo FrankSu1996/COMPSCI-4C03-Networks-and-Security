@@ -1,4 +1,4 @@
-
+import heapq as heap
 
 class Graph:
     # input for dijkstra algorithm as a list of dictionary objects as defined in the assignment #2-A
@@ -31,9 +31,38 @@ class Graph:
 
 class Dijkstra:
 
-    def __init__(self):
+    # initialize distance array to infinite
+    distance = [float("inf") for i in range(ord('z') + 1)]
+    edgeTo = [None for i in range(ord('z') + 1)]
+    pq = []
+
+    # constructor will run the algorithm
+    def __init__(self, graph):
+        # have distance to source router = 0
+        self.distance[ord('u')] = 0
+        # relax nodes in order of distance from s
+        heap.heappush(self.pq, (self.distance[ord('u')], 'u'))
+
+        while not len(pq) == 0:
+            x = 1
+
+    # function to relax edges
+    def relax(self, edge):
+        v = edge["r1"]; w = edge["r2"];
+        if self.distance[ord(w)] > self.distance[ord(v)] + edge["cost"]:
+            self.distance[ord(w)] = self.distance[ord(v)] + edge["cost"]
+            self.edgeTo[ord(w)] = edge
+
+            if w in (x[1] for x in self.pq):
+                newTuple = (self.distance[ord(w)], w)
+                self.pq.remove(x)
+                heap.heappush(self.pq, newTuple)
+            else:
+                heap.heappush(self.pq, (self.distance[ord(w)], w))
+
 
 # main function
 if __name__ == "__main__":
     # create graph that contains adjacency list needed for djikstra
     graph = Graph()
+    dijkstra = Dijkstra(graph)
