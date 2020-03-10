@@ -44,9 +44,12 @@ class Dijkstra:
         heap.heappush(self.pq, (self.distance[ord('u')], 'u'))
 
         while not len(self.pq) == 0:
+            # delete min element from heap
             v = heap.heappop(self.pq)[1]
-            print(v)
-            return
+            # relax all edges that are adjacent to v
+            for edge in graph.adjacencyList[ord(v)]:
+                self.relax(edge)
+
 
 
     # function to relax edges
@@ -55,13 +58,7 @@ class Dijkstra:
         if self.distance[ord(w)] > self.distance[ord(v)] + edge["cost"]:
             self.distance[ord(w)] = self.distance[ord(v)] + edge["cost"]
             self.edgeTo[ord(w)] = edge
-
-            if w in (x[1] for x in self.pq):
-                newTuple = (self.distance[ord(w)], w)
-                self.pq.remove(x)
-                heap.heappush(self.pq, newTuple)
-            else:
-                heap.heappush(self.pq, (self.distance[ord(w)], w))
+            heap.heappush(self.pq, (self.distance[ord(w)], w))
 
 
 # main function
@@ -69,3 +66,4 @@ if __name__ == "__main__":
     # create graph that contains adjacency list needed for djikstra
     graph = Graph()
     dijkstra = Dijkstra(graph)
+    print(dijkstra.distance)
