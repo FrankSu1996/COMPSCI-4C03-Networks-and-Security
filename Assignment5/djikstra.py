@@ -60,10 +60,31 @@ class Dijkstra:
             self.edgeTo[ord(w)] = edge
             heap.heappush(self.pq, (self.distance[ord(w)], w))
 
+    # function to print the first link
+    def printFirstLink(self, destination):
+        path = []
+        edge = self.edgeTo[ord(destination)]
+        while edge is not None:
+            path.append(edge)
+            edge = self.edgeTo[ord(edge["r1"])]
+        firstLink = path.pop(len(path) - 1)
+        r1 = firstLink["r1"]
+        r2 = firstLink["r2"]
+        print(f"({r1},{r2})")
+
 
 # main function
 if __name__ == "__main__":
     # create graph that contains adjacency list needed for djikstra
     graph = Graph()
     dijkstra = Dijkstra(graph)
-    print(dijkstra.distance)
+    
+    # print out results from dijkstra algorithm
+    print("""-------------------------
+Destination         Link
+-------------------------""")
+    print(f"v                   {dijkstra.printFirstLink('v')}")
+    print(f"w                   {dijkstra.printFirstLink('w')}")
+    print(f"x                   {dijkstra.printFirstLink('x')}")
+    print(f"y                   {dijkstra.printFirstLink('y')}")
+    print(f"z                   {dijkstra.printFirstLink('z')}")
